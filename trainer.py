@@ -8,6 +8,7 @@ from keras.utils.data_utils import pad_sequences
 from keras.preprocessing.text import Tokenizer
 from sklearn.preprocessing import LabelEncoder
 
+# abre o arquivo json para treino do bot
 with open("./intents_data/intents.json") as file:
     data = json.load(file)
 
@@ -57,16 +58,16 @@ model.summary()
 epochs = 500
 history = model.fit(padded_sequences, np.array(training_labels), epochs=epochs)
 
-# to save the trained model
+# salva o bot após o treino (salvando como 'chat_model')
 model.save("chat_model")
 
 import pickle
 
-# to save the fitted tokenizer
+# salva os 'tokens' montados
 with open('tokenizer.pickle', 'wb') as handle:
     pickle.dump(tokenizer, handle, protocol=pickle.HIGHEST_PROTOCOL)
     
-# to save the fitted label encoder
+# salva o codificador de label instalado
 with open('label_encoder.pickle', 'wb') as ecn_file:
     pickle.dump(lbl_encoder, ecn_file, protocol=pickle.HIGHEST_PROTOCOL)
     
