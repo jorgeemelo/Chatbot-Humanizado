@@ -14,24 +14,24 @@ with open("./intents_data/intents.json") as file:
     data = json.load(file)
 
 def chat():
-    # load trained model
+    # carrega o modelo do bot treinado através do 'trainer.py'
     model = keras.models.load_model('chat_model')
 
-    # load tokenizer object
+    # carrega o 'tokenizer'
     with open('tokenizer.pickle', 'rb') as handle:
         tokenizer = pickle.load(handle)
 
-    # load label encoder object
+    # carrega o 'label encoder'
     with open('label_encoder.pickle', 'rb') as enc:
         lbl_encoder = pickle.load(enc)
 
-    # parameters
+    # parametros
     max_len = 20
     
     while True:
         print(Fore.LIGHTBLUE_EX + "Usuario: " + Style.RESET_ALL, end="")
         inp = input()
-        if inp.lower() == "quit":
+        if inp.lower() == "sair":
             break
 
         result = model.predict(pad_sequences(tokenizer.texts_to_sequences([inp]),
@@ -44,5 +44,5 @@ def chat():
 
         # print(Fore.GREEN + "ChatBot:" + Style.RESET_ALL,random.choice(responses))
 
-print(Fore.YELLOW + "Começe a interagir com o robô! (para encerrar a conversa, escreva *SAIR*" + Style.RESET_ALL)
+print(Fore.YELLOW + "Começe a interagir com o robô! (para encerrar a conversa, escreva *SAIR*)" + Style.RESET_ALL)
 chat()
